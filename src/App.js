@@ -50,7 +50,7 @@ function App() {
 
   return (
     <Container>
-      <h1>Add New Member</h1>
+      <h1>Add  Member</h1>
       <form className={classes.root} onSubmit={handleSubmit}>
         {inputFields.map((inputField, index) => (
           <div key={index}>
