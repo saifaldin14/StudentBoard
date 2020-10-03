@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Scheduler from './components/Scheduler';
 import './App.css';
 import Toolbar from './components/Toolbar';
+import MessageArea from './components/MessageArea';
 
 const data = [
   { start_date: '2020-06-10 6:00', end_date: '2020-06-10 8:00', text: 'Event 1', id: 1 },
@@ -10,8 +11,28 @@ const data = [
 
 class App extends Component {
   state = {
-    currentTimeFormatState: true
+    currentTimeFormatState: true,
+    messages: []
   };
+  addMessage(message) {
+    const maxLogLength = 5;
+    const newMessage = { message };
+    const messages = [
+      newMessage,
+      ...this.state.messages
+    ];
+
+    if (messages.length > maxLogLength) {
+      messages.length = maxLogLength;
+    }
+    this.setState({ messages });
+  }
+
+  logDataUpdate = (action, ev, id) => {
+    const text = ev && ev.text ? ` (${ev.text})` : '';
+    const message = `event ${action}: ${id} ${text}`;
+    this.addMessage(message);
+  }
 
   handleTimeFormatStateChange = (state) => {
     this.setState({
@@ -19,7 +40,7 @@ class App extends Component {
     });
   }
   render() {
-    const { currentTimeFormatState } = this.state;
+    const { currentTimeFormatState, messages } = this.state;
     return (
       <div>
         <div className="tool-bar">
@@ -32,8 +53,12 @@ class App extends Component {
           <Scheduler
             events={data}
             timeFormatState={currentTimeFormatState}
+            onDataUpdated={this.logDataUpdate}
           />
         </div>
+        <MessageArea
+          messages={messages}
+        />
       </div>
     );
   }
