@@ -6,8 +6,22 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 import Icon from '@material-ui/core/Icon';
+import * as firebase from 'firebase';
 
 import { makeStyles } from '@material-ui/core/styles';
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBjccyLFvPHIeDh0UbbmSaPwIvgJcR5HkA",
+  authDomain: "studentboard-8ee94.firebaseapp.com",
+  databaseURL: "https://studentboard-8ee94.firebaseio.com",
+  projectId: "studentboard-8ee94",
+  storageBucket: "studentboard-8ee94.appspot.com",
+  messagingSenderId: "432971616058",
+  appId: "1:432971616058:web:17100bfeedfe1295234a03",
+  measurementId: "G-960XTBPST6"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 const useStyles = makeStyles((theme) => ({
   root: {
