@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles()
   const [inputFields, setInputFields] = useState([
-    { firstName: '', lastName: '' },
-    { firstName: '', lastName: '' },
+    { courseCode: '', courseName: '' },
+    { courseCode: '', courseName: '' },
   ]);
 
   const handleSubmit = (e) => {
@@ -39,7 +39,7 @@ function App() {
   }
 
   const handleAddFields = () => {
-    setInputFields([...inputFields, { firstName: '', lastName: '' }])
+    setInputFields([...inputFields, { courseCode: '', courseName: '' }])
   }
 
   const handleRemoveFields = (index) => {
@@ -55,17 +55,17 @@ function App() {
         {inputFields.map((inputField, index) => (
           <div key={index}>
             <TextField
-              name="firstName"
-              label="First Name"
+              name="courseCode"
+              label="Course Code"
               variant="filled"
-              value={inputField.firstName}
+              value={inputField.courseCode}
               onChange={event => handleChangeInput(index, event)}
             />
             <TextField
-              name="lastName"
-              label="Last Name"
+              name="courseName"
+              label="Course Name"
               variant="filled"
-              value={inputField.lastName}
+              value={inputField.courseName}
               onChange={event => handleChangeInput(index, event)}
             />
             <IconButton
@@ -85,7 +85,7 @@ function App() {
           variant="contained"
           color="primary"
           type="submit"
-          endIcon={<Icon>send</Icon>}
+          // endIcon={<Icon>Send</Icon>}
           onClick={handleSubmit}
         >Send</Button>
       </form>
