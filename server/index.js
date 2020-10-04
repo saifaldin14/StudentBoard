@@ -20,5 +20,13 @@ app.listen(PORT, () => {
 });
 
 //Set up mongoose
-//fZ5mKwz7LZQcwRt5 -phi_user
+mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}, (err) => {
+  if (err) throw err;
+  console.log("MongoDB connection established");
+});
 
+//Set up routes
+app.use("/users", require("./routes/userRouter"));
