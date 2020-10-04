@@ -1,11 +1,14 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const User = require('../models/useModel');
+
 router.post("/register", async (req, res) => {
   try {
-    const { email, password, passwordCheck, displayName } = req.body;
+    let { email, password, passwordCheck, displayName } = req.body;
 
-    //Validate data
+    //Validate data for sign up
     if (!email || !password || !passwordCheck)
       return res.status(400).json({ msg: "Not all fields have been entered" });
 
@@ -37,8 +40,39 @@ router.post("/register", async (req, res) => {
     const savedUser = await newUser.save();
     res.json(savedUser);
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message() });
   }
 
 });
+
+router.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password)
+      return res.status(400).json({ msg: "Not all fields have been entered" });
+
+    const user = await User.findOne({ email: email });
+
+    if (!user)
+      return res.status(400).json({ msg: "No account with this username exists" });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch)
+      return res.status(400).json({ msg: "Invalid credentials" });
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        displayName: user.displayName,
+        email: user.email
+      }
+    })
+  } catch (err) {
+    res.status(500).json({ error: err.message() });
+  }
+})
 module.exports = router;
