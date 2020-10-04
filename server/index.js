@@ -18,3 +18,8 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`The server has started on port ${PORT}`);
 });
+
+//Set up mongoose
+//fZ5mKwz7LZQcwRt5 -phi_user
+//mongodb+srv://phi_user:<password>@cluster0.vn2wy.mongodb.net/<dbname>?retryWrites=true&w=majority
+
