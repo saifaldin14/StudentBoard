@@ -21,5 +21,4 @@ app.listen(PORT, () => {
 
 //Set up mongoose
 //fZ5mKwz7LZQcwRt5 -phi_user
-//mongodb+srv://phi_user:<password>@cluster0.vn2wy.mongodb.net/<dbname>?retryWrites=true&w=majority
 
